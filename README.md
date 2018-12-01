@@ -1,4 +1,7 @@
 # IPSSI - ASI 20.2 - OOP
+
+**VOTRE NOM ET PRENOM DOIVENT ABSOLUMENT ETRE MIS A LA PLACE DE CETTE LIGNE, SINON JE NE POURRAIS PAS VOUS NOTER**
+
 ## Sujet de contrôle
 
 Le contrôle comporte deux parties, une pratique et une théorique.
