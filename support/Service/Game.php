@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Support\Service;
+namespace Fork\Service;
 
-use Support\Renderer\Output;
+use Fork\Renderer\Output;
 
 interface Game
 {

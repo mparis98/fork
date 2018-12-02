@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Support\Service;
+namespace Fork\Service;
 
-use Support\Entity\Connect4\Player;
-use Support\Renderer\Output;
+use Fork\Entity\Connect4\Player;
+use Fork\Renderer\Output;
 
 final class ConnectFourGame implements Game
 {

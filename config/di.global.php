@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Support\Factory;
-use Support\Renderer;
-use Support\Service;
+use Fork\Factory;
+use Fork\Renderer;
+use Fork\Service;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -15,6 +15,7 @@ return [
         'factories' => [
             Renderer\Output::class => Factory\Renderer\Output::class,
             Service\ConnectFourGame::class => Factory\Service\ConnectFourGame::class,
+            Src\Entity\GameGrid::class => Src\Service\GameGrid::class,
             // InvokableFactory can be used when the service does not need any constructor argument
             Service\PseudoRandomValue::class => InvokableFactory::class,
         ],

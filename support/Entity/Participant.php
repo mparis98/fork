@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Support\Service;
+namespace Fork\Service;
 
 
 interface Participant
 {
-
+//public function play(): Output
 }

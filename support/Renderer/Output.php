@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Support\Renderer;
+namespace Fork\Renderer;
 
 final class Output
 {

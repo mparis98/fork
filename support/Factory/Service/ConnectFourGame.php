@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Support\Factory\Service;
+namespace Fork\Factory\Service;
 
 use Interop\Container\ContainerInterface;
-use Support\Renderer\Output;
-use Support\Service\ConnectFourGame as ConnectFourInstance;
-use Support\Service\RandomValue;
+use Fork\Renderer\Output;
+use Fork\Service\ConnectFourGame as ConnectFourInstance;
+use Fork\Service\RandomValue;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 final class ConnectFourGame implements FactoryInterface

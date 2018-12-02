@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Support;
+namespace Fork;
 
 use Psr\Container\ContainerInterface;
-use Support\Exception\GameDoesNotExist;
-use Support\Service\ConnectFourGame;
-use Support\Service\Game;
+use Fork\Exception\GameDoesNotExist;
+use Fork\Service\ConnectFourGame;
+use Fork\Service\Game;
 use Zend\ServiceManager\ServiceManager;
 
 final class Application
