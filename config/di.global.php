@@ -10,12 +10,13 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'games' => [
         'connect4' => Service\ConnectFourGame::class,
-    ],
+        ],
     'service_manager' => [
         'factories' => [
             Renderer\Output::class => Factory\Renderer\Output::class,
             Service\ConnectFourGame::class => Factory\Service\ConnectFourGame::class,
-            Src\Entity\GameGrid::class => Src\Service\GameGrid::class,
+            Service\GameGrid::class =>Factory\Service\GameGrid::class,
+
             // InvokableFactory can be used when the service does not need any constructor argument
             Service\PseudoRandomValue::class => InvokableFactory::class,
         ],

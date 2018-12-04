@@ -6,12 +6,12 @@
  * Time: 11:42
  */
 
-namespace Src\Service;
+namespace Fork\Factory\Service;
 
 use Interop\Container\ContainerInterface;
 use Fork\Renderer\Output;
-use Src\Entity\GameGrid as Grid;
 use Zend\ServiceManager\Factory\FactoryInterface;
+use Fork\Service\GameGrid as Grid;
 
 final class GameGrid implements FactoryInterface
 {

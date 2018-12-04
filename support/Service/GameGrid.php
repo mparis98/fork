@@ -5,12 +5,12 @@
  * Date: 02/12/2018
  * Time: 10:59
  */
+declare(strict_types=1);
 
-namespace Src\Entity;
+
+namespace Fork\Service;
 
 use Fork\Renderer\Output;
-use Fork\Service\Game;
-
 final class GameGrid
 {
     private $x=7;
@@ -107,11 +107,12 @@ final class GameGrid
     {
         $gameGrid= [];
 
-        for ($i=1; $i<$this->x; $i++)
+        for ($i=1; $i<7; $i++)
         {
-            for ($w=1; $w<$this->y; $w++)
+            for ($w=1; $w<8; $w++)
             {
-                $gameGrid= array($i =array($w => $i.",".$w));
+                $gameGrid= array($i => array($w => $i.",".$w));
+                var_dump($gameGrid);
             }
         }
 
