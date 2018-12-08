@@ -12,6 +12,8 @@ namespace Src\Entity;
 
 
 
+use Fork\Service\GameGrid;
+
 class Pawn
 {
     private $x;
@@ -95,6 +97,25 @@ class Pawn
     public function setTeam($team)
     {
         $this->team = $team;
+    }
+
+    public function verifPawn(Pawn $pawn, GameGrid $grid)
+    {
+        $x = [];
+        $location = $grid->getGrid();
+        $i = 1;
+//var_dump($grid);
+        foreach ($location as $loc) {
+            foreach ($loc as $l)
+            {
+                if ($l[$pawn->getY()] == $pawn->getX().','.$pawn->getY())
+                {
+                    var_dump($l);
+                    var_dump($pawn->getX());
+                    var_dump($pawn->getY());
+                }
+            }
+        }
     }
 
 

@@ -8,23 +8,24 @@
 
 namespace Src\Entity;
 
-use Fork\Service\Participant;
+use Fork\Service\Output;
+use Fork\Entity\Participant;
 use Src\Entity\Team;
 
 final class Player implements Participant
 {
     private $id;
-    private $team;
+    private $name;
 
     /**
      * Player constructor.
      * @param $id
      * @param $team
      */
-    public function __construct(int $id, Team $team)
+    public function __construct(int $id, string $name)
     {
         $this->id = $id;
-        $this->team = $team;
+        $this->name = $name;
     }
 
 
@@ -47,17 +48,17 @@ final class Player implements Participant
     /**
      * @return mixed
      */
-    public function getTeam()
+    public function getName()
     {
-        return $this->team;
+        return $this->name;
     }
 
     /**
      * @param mixed $team
      */
-    public function setTeam($team)
+    public function setName($name)
     {
-        $this->team = $team;
+        $this->name = $name;
     }
 
 

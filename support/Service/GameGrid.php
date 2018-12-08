@@ -105,18 +105,22 @@ final class GameGrid
 
     public function init()
     {
+
+        $this->getOutput();
         $gameGrid= [];
 
         for ($i=1; $i<7; $i++)
         {
             for ($w=1; $w<8; $w++)
             {
-                $gameGrid= array($i => array($w => $i.",".$w));
-                var_dump($gameGrid);
+                array_push($gameGrid, array($i => array($w => $i.",".$w)));
+
             }
         }
-
+        //var_dump($gameGrid);
         $this->setGrid($gameGrid);
+
+
         //return $this->grid;
 
     }

@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Fork\Service;
+namespace Fork\Entity;
 
+
+use Src\Entity\Player;
 
 interface Participant
 {
-//public function play(): Output
+
+
 }

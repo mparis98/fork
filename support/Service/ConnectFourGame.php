@@ -6,6 +6,12 @@ namespace Fork\Service;
 
 use Fork\Entity\Connect4\Player;
 use Fork\Renderer\Output;
+use Fork\Service\GameGrid;
+use Interop\Container\ContainerInterface;
+use Src\Entity\Player as PlayerGame;
+use Src\Entity\Round;
+use Src\Entity\Team;
+use Src\Entity\Part;
 
 final class ConnectFourGame implements Game
 {
@@ -35,7 +41,26 @@ final class ConnectFourGame implements Game
 
     public function run(): Output
     {
+
+
         $this->selectFirstPlayer();
+        $gamegrid = new GameGrid($this->output)  ;
+        $gamegrid->run();
+        $player1= new PlayerGame(1, "Player 1");
+        $player2 = new PlayerGame(2, "Player 2");
+        $red = new Team("red", $player1);
+        $green = new Team("green", $player2);
+        $this->output->writeLine("Choix aléatoire des équipes (rouge et jaune).");
+        $part = new Part($player1, $player2, $gamegrid);
+        $this->output->writeLine("Initialisation de la partie.");
+        $debuts=$part->randPlayer();
+        $this->output->writeLine("Choix aléatoire de l'identifiant du premier participant.");
+        $round=new Round($player1, $player2, $gamegrid, $part,1);
+        $round->round($debuts,$player1,$player2,$gamegrid,$red,$green);
+
+
+
+
 
         return $this->output;
     }

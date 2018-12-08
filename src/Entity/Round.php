@@ -14,31 +14,49 @@ use Fork\Service\GameGrid;
 class Round extends Part
 {
     private $part;
+    private $id;
 
     /**
      * Round constructor.
      * @param $part
      */
-    public function __construct(array $players, GameGrid $grid, Part $part)
+    public function __construct(Player $player1, Player $player2, GameGrid $grid, Part $part, int $id)
     {
-        parent::__construct($players, $grid);
+        parent::__construct($player1,$player2, $grid);
         $this->part = $part;
+        $this->id= $id;
     }
 
     /**
-     * @return array
+     * @return Player
      */
-    public function getPlayers()
+    public function getPlayer1()
     {
-        return $this->players;
+        return $this->player1;
     }
 
     /**
-     * @param array $players
+     * @param Player $player1
      */
-    public function setPlayers($players)
+    public function setPlayer1($player1)
     {
-        $this->players = $players;
+        $this->player1 = $player1;
+    }
+
+    /**
+     * @return Player
+     */
+    public function getPlayer2()
+    {
+        return $this->player2;
+    }
+
+    /**
+     * @param Player $player2
+     */
+    public function setPlayer2($player2)
+    {
+        $this->player2 = $player2;
     }
 
     /**
@@ -71,6 +89,61 @@ class Round extends Part
     public function setPart($part)
     {
         $this->part = $part;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
+
+    public function round(int $number, Player $player1, Player $player2, GameGrid $grid, Team $red, Team $green)
+    {
+        if ($number == 1)
+        {
+            $this->playFirst($player1, $grid, $red, $green);
+        }
+        else{
+            $this->playSecond($player2, $grid, $red, $green);
+        }
+    }
+
+    public function playFirst(Player $player1, GameGrid $grid, Team $red, Team $green)
+    {
+        if ($red->getPlayer() == $player1)
+        {
+            $pawn = new Pawn(rand(1,7),rand(1,6),$player1,$red);
+        }
+        else
+        {
+            $pawn = new Pawn(rand(1,7),rand(1,6),$player1,$green);
+        }
+         $pawn->verifPawn($pawn, $grid);
+    }
+
+    public function playSecond(Player $player2, GameGrid $grid, Team $red, Team $green)
+    {
+        if ($red->getPlayer() == $player2)
+        {
+            $pawn = new Pawn(rand(1,7),rand(1,6),$player2,$red);
+        }
+        else
+        {
+            $pawn = new Pawn(rand(1,7),rand(1,6),$player2,$green);
+        }
+        $pawn->verifPawn($pawn, $grid);
     }
 
 
