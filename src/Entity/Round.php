@@ -9,6 +9,7 @@
 namespace Src\Entity;
 
 
+use Fork\Renderer\Output;
 use Fork\Service\GameGrid;
 
 class Round extends Part
@@ -109,41 +110,44 @@ class Round extends Part
 
 
 
-    public function round(int $number, Player $player1, Player $player2, GameGrid $grid, Team $red, Team $green)
+    public function round(int $number, Player $player1, Player $player2, GameGrid $grid, Team $red, Team $green, Output $output)
     {
         if ($number == 1)
         {
-            $this->playFirst($player1, $grid, $red, $green);
+            $this->playFirst($player1, $grid, $red, $green, $output);
+            $this->playSecond($player2, $grid, $red, $green, $output);
+
         }
         else{
-            $this->playSecond($player2, $grid, $red, $green);
+            $this->playSecond($player2, $grid, $red, $green, $output);
+            $this->playFirst($player1, $grid, $red, $green, $output);
         }
     }
 
-    public function playFirst(Player $player1, GameGrid $grid, Team $red, Team $green)
+    public function playFirst(Player $player1, GameGrid $grid, Team $red, Team $green, Output $output)
     {
-        if ($red->getPlayer() == $player1)
+        if ($red->getPlayer()->getId() == $player1->getId())
         {
-            $pawn = new Pawn(rand(1,7),rand(1,6),$player1,$red);
+            $pawn = new Pawn(rand(1,6),rand(1,7),$player1,$red);
         }
         else
         {
-            $pawn = new Pawn(rand(1,7),rand(1,6),$player1,$green);
+            $pawn = new Pawn(rand(1,6),rand(1,7),$player1,$green);
         }
-         $pawn->verifPawn($pawn, $grid);
+         $pawn->verifPawn($pawn, $grid, $output);
     }
 
-    public function playSecond(Player $player2, GameGrid $grid, Team $red, Team $green)
+    public function playSecond(Player $player2, GameGrid $grid, Team $red, Team $green, Output $output)
     {
-        if ($red->getPlayer() == $player2)
+        if ($red->getPlayer()->getId() == $player2->getId())
         {
-            $pawn = new Pawn(rand(1,7),rand(1,6),$player2,$red);
+            $pawn = new Pawn(rand(1,6),rand(1,7),$player2,$red);
         }
         else
         {
-            $pawn = new Pawn(rand(1,7),rand(1,6),$player2,$green);
+            $pawn = new Pawn(rand(1,6),rand(1,7),$player2,$green);
         }
-        $pawn->verifPawn($pawn, $grid);
+        $pawn->verifPawn($pawn, $grid, $output);
     }
 
 

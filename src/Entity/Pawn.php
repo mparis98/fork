@@ -12,6 +12,7 @@ namespace Src\Entity;
 
 
 
+use Fork\Renderer\Output;
 use Fork\Service\GameGrid;
 
 class Pawn
@@ -99,28 +100,89 @@ class Pawn
         $this->team = $team;
     }
 
-    public function verifPawn(Pawn $pawn, GameGrid $grid)
+    /**
+     * @param Pawn $pawn
+     * @param GameGrid $grid
+     * @return bool
+     */
+    public function verifPawn(Pawn $pawn, GameGrid $grid, Output $output): bool
     {
-        $x = [];
+        if ($pawn->getTeam()->getName() == "red") {
+            $color = "R";
+        } else {
+            $color = "G";
+        }
+        $y = $pawn->getY();
+        $x = $pawn->getX();
         $location = $grid->getGrid();
-        $i = 1;
-//var_dump($grid);
-        foreach ($location as $loc) {
-            foreach ($loc as $l)
+        $r = null;
+
+        if (in_array(array($pawn->getX() => array($pawn->getY() => $pawn->getX() . ',' . $pawn->getY())), $location) != false) {
+            $value = false;
+            $nb = 1;
+            while ($value != true)
             {
-                if ($l[$pawn->getY()] == $pawn->getX().','.$pawn->getY())
+                if (($y-$nb) >=0)
                 {
-                    var_dump($l);
-                    var_dump($pawn->getX());
-                    var_dump($pawn->getY());
+                    if (in_array(array($pawn->getX() => array(($y-$nb) => $pawn->getX() . ',' . ($y-$nb))), $location) == true) {
+                        if(($y-$nb) == 1)
+                        {
+                            $xy = ((($x-1)*7)+(($y-$nb)-1));
+                            $location[$xy]= array($pawn->getX() => array((($y-$nb)) => $pawn->getX() . ',' . (($y-$nb)) . ',' . $color));
+                            $grid->setGrid($location);
+                            $output->writeLine("Le joueur ".$pawn->getPlayer()->getId()." joue dans la case ".$pawn->getX().",".(($y-$nb)));
+                            $value=true;
+                            break;
+                        }
+                        $nb++;
+                    }
+                    else
+                    {
+
+                        $xy = ((($x-1)*7)+(($y-$nb)));
+                        $location[$xy]= array($pawn->getX() => array((($y-$nb)+1) => $pawn->getX() . ',' . (($y-$nb)+1) . ',' . $color));
+                        $grid->setGrid($location);
+                        $output->writeLine("Le joueur ".$pawn->getPlayer()->getId()." joue dans la case ".$pawn->getX().",".(($y-$nb)+1));
+
+                        $value=true;
+                        break;
+                    }
+                }
+                else
+                {
+                    $value=true;
+
                 }
             }
+        } else {
+            $value = false;
+            $nb = 1;
+            while ($value != true) {
+                if ($y+$nb <=6)
+                {
+                    if (in_array(array($pawn->getX() => array($y+$nb => $pawn->getX() . ',' . ($y+$nb))), $location) == true) {
+                        $nb++;
+                    }
+                    else
+                    {
+                        $xy = ((($x-1)*7)+(($y+$nb)-1));
+                        $location[$xy]= array($pawn->getX() => array((($y+$nb)) => $pawn->getX() . ',' . (($y+$nb)) . ',' . $color));
+                        $grid->setGrid($location);
+                        $output->writeLine("Le joueur ".$pawn->getPlayer()->getId()." joue dans la case ".$pawn->getX().",".(($y+$nb)));
+
+                        $value=true;
+                        break;
+                    }
+            }
+            else
+            {
+                $value=true;
+
+            }
+            }
         }
+        return true;
+
+
     }
-
-
-
-
-
-
 }

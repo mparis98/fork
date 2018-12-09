@@ -42,7 +42,8 @@ final class ConnectFourGame implements Game
     public function run(): Output
     {
 
-
+$win=false;
+$id = 1;
         $this->selectFirstPlayer();
         $gamegrid = new GameGrid($this->output)  ;
         $gamegrid->run();
@@ -55,12 +56,23 @@ final class ConnectFourGame implements Game
         $this->output->writeLine("Initialisation de la partie.");
         $debuts=$part->randPlayer();
         $this->output->writeLine("Choix aléatoire de l'identifiant du premier participant.");
-        $round=new Round($player1, $player2, $gamegrid, $part,1);
-        $round->round($debuts,$player1,$player2,$gamegrid,$red,$green);
 
 
+        while ($win!=true)
+        {
+            $round=new Round($player1, $player2, $gamegrid, $part,$id);
+            $gridRound = $round->round($debuts,$player1,$player2,$gamegrid,$red,$green, $this->output);
+            if ($id >=4)
+            {
+                if($part->win($gamegrid, $this->output))
+                {
+                    var_dump($gamegrid->getGrid());
+                    $win=true;
+                }
+            }
 
-
+            $id++;
+        }
 
         return $this->output;
     }
