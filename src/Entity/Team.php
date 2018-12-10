@@ -5,6 +5,7 @@
  * Date: 02/12/2018
  * Time: 10:37
  */
+declare(strict_types=1);
 
 namespace Src\Entity;
 

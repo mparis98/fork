@@ -5,6 +5,7 @@
  * Date: 04/12/2018
  * Time: 20:45
  */
+declare(strict_types=1);
 
 namespace Src\Entity;
 
@@ -12,8 +13,9 @@ namespace Src\Entity;
 use Fork\Renderer\Output;
 use Fork\Service\Game;
 use Fork\Service\GameGrid;
+use Fork\Service\RandomValue;
 
-class Part
+class Part implements RandomValue
 {
     protected $player1;
     protected $player2;
@@ -34,7 +36,7 @@ class Part
     /**
      * @return Player
      */
-    public function getPlayer1()
+    public function getPlayer1(): Player
     {
         return $this->player1;
     }
@@ -50,7 +52,7 @@ class Part
     /**
      * @return Player
      */
-    public function getPlayer2()
+    public function getPlayer2(): Player
     {
         return $this->player2;
     }
@@ -67,7 +69,7 @@ class Part
     /**
      * @return GameGrid
      */
-    public function getGrid()
+    public function getGrid(): GameGrid
     {
         return $this->grid;
     }
@@ -80,14 +82,16 @@ class Part
         $this->grid = $grid;
     }
 
-    public function randPlayer(): int
+    public function generateRandomInt(int $min, int $max): int
     {
-        $number = rand(1,2);
+        // TODO: Implement generateRandomInt() method.
+        $number = rand($min,$max);
 
         return $number;
     }
 
-    public function win(GameGrid $grid, Output $output)
+
+    public function win(GameGrid $grid, Output $output): bool
     {
         if ($this->verifAlign($grid, $output) == true)
         {
@@ -103,7 +107,7 @@ class Part
         return false;}
     }
 
-    public function verifAlign(GameGrid $grid, Output $output)
+    public function verifAlign(GameGrid $grid, Output $output): bool
     {
         $winR=0;
         $winG=0;
@@ -142,19 +146,18 @@ class Part
 
                     $i++;
 
-
                 }
             }
         }
 
         if($winR>=4)
             {
-                $output->writeLine("Partie terminée, rouge gagne par alignement horizontal");
+                $output->writeLine("Partie terminée, rouge gagne.");
                 return true;
             }
             elseif ($winG>=4)
             {
-                $output->writeLine("Partie terminée, vert gagne par alignement horizontal");
+                $output->writeLine("Partie terminée, vert gagne.");
                 return true;
             }
             else
@@ -164,7 +167,7 @@ class Part
             }
         }
 
-    public function verifVertical(GameGrid $grid, Output $output)
+    public function verifVertical(GameGrid $grid, Output $output): bool
     {
         $w=0;
         $winR=0;
@@ -172,48 +175,39 @@ class Part
         $location=$grid->getGrid();
 
 
-        for ($y=1; $y<=7; $y++)
-        {
-            $w=($y-1);
+        for ($y=1; $y<=7; $y++) {
+            $w = ($y - 1);
 
-            for ($x=1; $x<=6; $x++)
-            {
+            for ($x = 1; $x <= 6; $x++) {
 
-                    if ($location[$w] == array($x=>array($y=>$x.','.$y.',R')))
-                    {
-                        $winR++;
-                        $winG = 0;
-                    if($winR == 4)
-                        {
-                            break 2;
-                        }
+                if ($location[$w] == array($x => array($y => $x . ',' . $y . ',R'))) {
+                    $winR++;
+                    $winG = 0;
+                    if ($winR == 4) {
+                        break 2;
                     }
-                    elseif ($location[$w] == array($x=>array($y=>$x.','.$y.',G')))
-                    {
-                        $winG++;
-                        $winR = 0;
-                        if($winG == 4)
-                        {
-                            break 2;
-                        }
+                } elseif ($location[$w] == array($x => array($y => $x . ',' . $y . ',G'))) {
+                    $winG++;
+                    $winR = 0;
+                    if ($winG == 4) {
+                        break 2;
                     }
-                    else
-                    {
-                        $winG=0;
-                        $winR=0;
-                    }
-                    $w=$w+7;
-
+                } else {
+                    $winG = 0;
+                    $winR = 0;
+                }
+                $w = $w + 7;
+            }
         }
-        }
+
         if($winR>=4)
         {
-            $output->writeLine("Partie terminée, rouge gagne par alignement vertical");
+            $output->writeLine("Partie terminée, rouge gagne.");
             return true;
         }
         elseif ($winG>=4)
         {
-            $output->writeLine("Partie terminée, vert gagne par alignement vertical");
+            $output->writeLine("Partie terminée, vert gagne.");
             return true;
         }
         else
@@ -226,18 +220,23 @@ class Part
      * @param GameGrid $grid
      * @return bool|string
      */
-    public function verifDiagLeft(GameGrid $grid, Output $output)
+    public function verifDiagLeft(GameGrid $grid, Output $output): bool
     {
         $winR=0;
         $winG=0;
         $diagx=2;
         $diagy=2;
 
-        foreach ($grid->getGrid() as $lign) {
-            foreach ($lign as $l) {
-                for ($i = 1; $i <= 7; $i++) {
-                    for ($y = 1; $y < 6; $y++) {
-                        if($l[$i] == $i . ',' . $y . 'R'){
+        foreach ($grid->getGrid() as $lign)
+        {
+            foreach ($lign as $l)
+            {
+                for ($i = 1; $i <= 7; $i++)
+                {
+                    for ($y = 1; $y < 6; $y++)
+                    {
+                        if($l[$i] == $i . ',' . $y . 'R')
+                        {
                             for ($w=$diagx; $diagx<7; $diagx++)
                             {
                                 if ($l[$diagx] == $diagx.','.$diagy.'R')
@@ -250,10 +249,10 @@ class Part
                                         break 5;
                                     }
                                 }
-
+                            }
                         }
-                        }
-                        if ($l[$i] == $i . ',' . $y . 'G') {
+                        if ($l[$i] == $i . ',' . $y . 'G')
+                        {
                             for ($w=$diagx; $diagx<7; $diagx++)
                             {
                                 if ($l[$w] == $w.','.$diagy.'R')
@@ -266,10 +265,8 @@ class Part
                                         break 5;
                                     }
                                 }
-
                             }
                         }
-
                     }
                 }
             }
@@ -290,18 +287,23 @@ class Part
         }
     }
 
-    public function verifDiagRight(GameGrid $grid, Output $output)
+    public function verifDiagRight(GameGrid $grid, Output $output): bool
     {
         $winR=0;
         $winG=0;
         $diagx=6;
         $diagy=2;
 
-        foreach ($grid->getGrid() as $lign) {
-            foreach ($lign as $l) {
-                for ($i = 7; $i <= 1; $i--) {
-                    for ($y = 1; $y < 6; $y++) {
-                        if($l[$i] == $i . ',' . $y . 'R'){
+        foreach ($grid->getGrid() as $lign)
+        {
+            foreach ($lign as $l)
+            {
+                for ($i = 7; $i <= 1; $i--)
+                {
+                    for ($y = 1; $y < 6; $y++)
+                    {
+                        if($l[$i] == $i . ',' . $y . 'R')
+                        {
                             for ($w=$diagx; $diagx>1; $diagx--)
                             {
                                 if ($l[$diagx] == $diagx.','.$diagy.'R')
@@ -314,11 +316,11 @@ class Part
                                         break 5;
                                     }
                                 }
-
                             }
                         }
 
-                        if ($l[$i] == $i . ',' . $y . 'G') {
+                        if ($l[$i] == $i . ',' . $y . 'G')
+                        {
                             for ($w=$diagx; $diagx>1; $diagx--)
                             {
                                 if ($l[$w] == $w.','.$diagy.'R')
@@ -331,10 +333,8 @@ class Part
                                         break 5;
                                     }
                                 }
-
                             }
                         }
-
                     }
                 }
             }
@@ -354,8 +354,4 @@ class Part
             return false;
         }
     }
-
-
-
-
 }

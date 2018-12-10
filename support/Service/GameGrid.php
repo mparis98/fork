@@ -114,16 +114,8 @@ final class GameGrid
             for ($w=1; $w<8; $w++)
             {
                 array_push($gameGrid, array($i => array($w => $i.",".$w)));
-
             }
         }
-        //var_dump($gameGrid);
         $this->setGrid($gameGrid);
-
-
-        //return $this->grid;
-
     }
-
-
 }

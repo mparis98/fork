@@ -5,6 +5,7 @@
  * Date: 02/12/2018
  * Time: 10:35
  */
+declare(strict_types=1);
 
 namespace Src\Entity;
 
@@ -32,7 +33,7 @@ final class Player implements Participant
     /**
      * @return mixed
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -48,7 +49,7 @@ final class Player implements Participant
     /**
      * @return mixed
      */
-    public function getName()
+    public function getName(): Name
     {
         return $this->name;
     }
@@ -60,6 +61,4 @@ final class Player implements Participant
     {
         $this->name = $name;
     }
-
-
 }

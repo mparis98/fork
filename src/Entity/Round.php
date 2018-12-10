@@ -5,6 +5,7 @@
  * Date: 04/12/2018
  * Time: 20:51
  */
+declare(strict_types=1);
 
 namespace Src\Entity;
 
@@ -12,7 +13,7 @@ namespace Src\Entity;
 use Fork\Renderer\Output;
 use Fork\Service\GameGrid;
 
-class Round extends Part
+final class Round extends Part
 {
     private $part;
     private $id;
@@ -31,7 +32,7 @@ class Round extends Part
     /**
      * @return Player
      */
-    public function getPlayer1()
+    public function getPlayer1(): Player
     {
         return $this->player1;
     }
@@ -47,7 +48,7 @@ class Round extends Part
     /**
      * @return Player
      */
-    public function getPlayer2()
+    public function getPlayer2(): Player
     {
         return $this->player2;
     }
@@ -63,7 +64,7 @@ class Round extends Part
     /**
      * @return GameGrid
      */
-    public function getGrid()
+    public function getGrid(): GameGrid
     {
         return $this->grid;
     }
@@ -79,7 +80,7 @@ class Round extends Part
     /**
      * @return Part
      */
-    public function getPart()
+    public function getPart(): Part
     {
         return $this->part;
     }
@@ -95,7 +96,7 @@ class Round extends Part
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -149,8 +150,4 @@ class Round extends Part
         }
         $pawn->verifPawn($pawn, $grid, $output);
     }
-
-
-
-
 }
