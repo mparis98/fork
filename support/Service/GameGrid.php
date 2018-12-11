@@ -103,7 +103,7 @@ final class GameGrid
         return $this->output;
     }
 
-    public function init()
+    public function init(): void
     {
 
         $this->getOutput();

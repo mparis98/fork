@@ -4,7 +4,15 @@
 
 ## Théorie Réponse :
 
-**Héritage et Composition** :
+**Mécanisme d'inversion de dépendance :**
+
+- Dans le fichier Application.php à la ligne 57.
+
+**Diagramme de classe :**
+
+Lien : https://drive.google.com/file/d/1foZFUeQLV-mzl4SgYLYQaFLwhbWJ8aHi/view?usp=sharing
+
+**Héritage et Composition :** 
 
 `L'héritage` est un des grands principes de la programmation orientée objet (POO). Elle permet d'étendre une classe à une autre classe dite "fille" qui hérite de toutes les méthodes publiques et protégées de la classe parente. Tant qu'une classe n'écrase pas ces méthodes, elles conservent leur fonctionnalité d'origine.
 

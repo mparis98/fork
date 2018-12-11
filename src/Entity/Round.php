@@ -111,7 +111,7 @@ final class Round extends Part
 
 
 
-    public function round(int $number, Player $player1, Player $player2, GameGrid $grid, Team $red, Team $green, Output $output)
+    public function round(int $number, Player $player1, Player $player2, GameGrid $grid, Team $red, Team $green, Output $output): void
     {
         if ($number == 1)
         {
@@ -125,7 +125,7 @@ final class Round extends Part
         }
     }
 
-    public function playFirst(Player $player1, GameGrid $grid, Team $red, Team $green, Output $output)
+    public function playFirst(Player $player1, GameGrid $grid, Team $red, Team $green, Output $output): void
     {
         if ($red->getPlayer()->getId() == $player1->getId())
         {
@@ -138,7 +138,7 @@ final class Round extends Part
          $pawn->verifPawn($pawn, $grid, $output);
     }
 
-    public function playSecond(Player $player2, GameGrid $grid, Team $red, Team $green, Output $output)
+    public function playSecond(Player $player2, GameGrid $grid, Team $red, Team $green, Output $output): void
     {
         if ($red->getPlayer()->getId() == $player2->getId())
         {
