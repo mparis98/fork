@@ -1,6 +1,7 @@
 # IPSSI - ASI 20.2 - OOP
 
 **Matthieu PARIS**
+Pour lancer le projet : `php index.php connect4`
 
 ## Théorie Réponse :
 
